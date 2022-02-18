@@ -11,9 +11,9 @@ aBot.launch();
 
 (async () => {
   let resultMessage = [];
-  resultMessage.push(await runIntegrationTest( "ping pong test" , "ping","pong", 0));
-  resultMessage.push(await runIntegrationTest( "simple error test", "yes","no", 4));
-  resultMessage.push(await runIntegrationTest( "timeout test", "yes","no", 0.01));
+  resultMessage.push(await runIntegrationTest( "ping pong test" , "ping","pong", 7));
+  resultMessage.push(await runIntegrationTest( "simple error test", "yes","no", 0));
+  resultMessage.push(await runIntegrationTest( "timeout test", "yes","no", 0.0001));
 
   showTestResults(resultMessage);
   process.exit(1);
