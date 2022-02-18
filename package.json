@@ -31,5 +31,8 @@
   },
   "dependencies": {
     "telegraf": "^4.7.0"
+  },
+  "jest":{
+    "modulePathIgnorePatterns":  ["_integration"]
   }
 }
