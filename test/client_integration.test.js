@@ -1,4 +1,4 @@
-import {runIntegrationTest} from './integrationTestRunner.js'
+import {runIntegrationTest , showTestResults} from './integrationTestRunner.js'
 // clase a testear
 import { MyBot } from '../src/myBot.js';
 
@@ -11,11 +11,11 @@ aBot.launch();
 
 (async () => {
   let resultMessage = [];
-  resultMessage.push(await runIntegrationTest( "ping","pong", 0));
-  resultMessage.push(await runIntegrationTest( "yes","no", 0));
+  resultMessage.push(await runIntegrationTest( "ping pong test" , "ping","pong", 0));
+  resultMessage.push(await runIntegrationTest( "simple error test", "yes","no", 4));
+  resultMessage.push(await runIntegrationTest( "timeout test", "yes","no", 0.01));
 
-  console.log(resultMessage);
+  showTestResults(resultMessage);
   process.exit(1);
-
 })(); 
 

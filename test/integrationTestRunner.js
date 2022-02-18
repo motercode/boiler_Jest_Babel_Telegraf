@@ -16,7 +16,7 @@ const timeoutsecs = 3;
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms!=0?ms*1000:timeoutsecs*1000));
 
 
-async function runIntegrationTest(intakeMessage,messageExpected,especificDelay = 0){
+async function runIntegrationTest(testText,intakeMessage,messageExpected,especificDelay = 0){
     let resultMessage=[];
     let answerMessages = [];
     let newMessages = false;
@@ -47,18 +47,32 @@ async function runIntegrationTest(intakeMessage,messageExpected,especificDelay =
   
     if(!newMessages)
     {
-      resultMessage.push(`el bot no ha respondido en el tiempo especificado ${especificDelay?especificDelay:timeoutsecs} segundos`);
+      resultMessage.push(`\x1b[33mel bot no ha respondido en el tiempo especificado ${especificDelay?especificDelay:timeoutsecs} segundos\x1b[37m`);
     }else if( answerMessages[0].message==messageExpected)
     {
-       resultMessage.push('el test ha sido correcto');
+       resultMessage.push(`\x1b[32m${testText} : el test ha sido correcto\x1b[37m`);
     }
     else{
-      resultMessage.push(`el bot ha respondido ${answerMessages[0].message} y se esperaba ${messageExpected} `);
+      resultMessage.push(`el bot ha respondido <\x1b[31m${answerMessages[0].message}\x1b[37m> y se esperaba <\x1b[32m${messageExpected}\x1b[37m> `);
     }
   
   
     return resultMessage;
   }
   
+  function showTestResults(testResultsArray){
+    let i=0;
+    console.log (`
+    
+            TEST RESULTS 
+    `)
+    testResultsArray.forEach(message => {
+      i++;
+      console.log(`${i} ---> ${message[0]}`);
+    })
+    console.log (`
+`)
+  }
 
-  export {runIntegrationTest};
+  export {runIntegrationTest , 
+          showTestResults };
