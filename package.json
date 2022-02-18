@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test": "jest",
+    "integrationTest": "npx babel-node ./test/client_integration.test.js",
     "start": "npx babel-node app.js"
   },
   "repository": {
@@ -23,7 +24,10 @@
   "devDependencies": {
     "@babel/node": "^7.16.8",
     "@babel/preset-env": "^7.16.11",
-    "jest": "^27.5.1"
+    "dotenv": "^16.0.0",
+    "input": "^1.0.1",
+    "jest": "^27.5.1",
+    "telegram": "^2.5.0"
   },
   "dependencies": {
     "telegraf": "^4.7.0"
