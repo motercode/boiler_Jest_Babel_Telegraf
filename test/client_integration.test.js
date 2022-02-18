@@ -24,7 +24,7 @@ aBot.launch();
 
 
 (async () => {
-  console.log("Loading interactive example...");
+  console.log("Loading integration test...");
   const client = new TelegramClient(stringSession, apiId, apiHash, {
     connectionRetries: 5,
   });
@@ -47,7 +47,6 @@ aBot.launch();
   const sentIntakeMessageTime =  Date.now();
   let testeando = 0
   while (lastmessage!=messageExpected && !timeOut) {
-    testeando =Date.now() - sentIntakeMessageTime;
     timeOut = (( Date.now() - sentIntakeMessageTime) > (timeoutsecs*1000));
     lastmessage = (await client.getMessages(process.env.NAME_OF_BOT_CHANNEL,{}))[0];
    
