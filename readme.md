@@ -67,5 +67,6 @@ npm install dotenv --save
 change the configuration keys to .env
 
 
+npm run integrationTest
 
 
