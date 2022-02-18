@@ -1,2 +1,3 @@
 preparar un sistema que pueda activar que si cambio codigo y esta el bot en marcha se actualicen los cambios de
 preparar un cliente de telegram para que haga test de integracion 
+hacer que el jest no tire los test de integracion
