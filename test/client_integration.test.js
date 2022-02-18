@@ -52,7 +52,7 @@ aBot.launch();
    
   }
 
-  if(lastmessage.message=messageExpected)
+  if(lastmessage.message==messageExpected)
   {
      resultMessage.push('el test ha sido correcto');
   }
