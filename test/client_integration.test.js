@@ -4,7 +4,7 @@ import input from "input";
 import 'dotenv/config'
 
 // clase a testear
-import { MyBot } from '../src/mybot.js';
+import { MyBot } from '../src/myBot.js';
 
 
 
@@ -15,15 +15,31 @@ const stringSession = new StringSession(process.env.STRING_SESSION); // fill thi
 
 let resultMessage=[];
 const timeoutsecs = 3;
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms!=0?ms*1000:timeoutsecs*1000));
 
-const messageExpected = "pong";
-const intakeMessage = "ping";
-let aBot = new MyBot();
+
+
+const aBot = new MyBot();
 aBot.launch();
 
 
 
 (async () => {
+  
+  await runIntegrationTest( "ping","pong", 0);
+  await runIntegrationTest( "yes","no", 0);
+
+  console.log(resultMessage);
+  process.exit(1);
+
+})(); 
+
+
+async function runIntegrationTest(intakeMessage,messageExpected,especificDelay = 0){
+
+  let answerMessages = [];
+  let newMessages = false;
+  let initialMessagesLength=0;
   console.log("Loading integration test...");
   const client = new TelegramClient(stringSession, apiId, apiHash, {
     connectionRetries: 5,
@@ -38,33 +54,27 @@ aBot.launch();
   // console.log("You should now be connected.");
   // console.log(client.session.save()); // Save this string to avoid logging in again
   
+
+
+
   
-
-  let lastmessage=undefined;
-  let timeOut = false;
-
   await client.sendMessage(process.env.NAME_OF_BOT_CHANNEL, { message: intakeMessage });
-  const sentIntakeMessageTime =  Date.now();
-  let testeando = 0
-  while (lastmessage!=messageExpected && !timeOut) {
-    timeOut = (( Date.now() - sentIntakeMessageTime) > (timeoutsecs*1000));
-    lastmessage = (await client.getMessages(process.env.NAME_OF_BOT_CHANNEL,{}))[0];
-   
-  }
+  initialMessagesLength = (await client.getMessages(process.env.NAME_OF_BOT_CHANNEL,{})).length;  
+  await delay(especificDelay);
+  answerMessages = await client.getMessages(process.env.NAME_OF_BOT_CHANNEL,{});  
+  newMessages = (initialMessagesLength != answerMessages.length);
 
-  if(lastmessage.message==messageExpected)
+  if(!newMessages)
+  {
+    resultMessage.push(`el bot no ha respondido en el tiempo especificado ${especificDelay?especificDelay:timeoutsecs} segundos`);
+  }else if( answerMessages[0].message==messageExpected)
   {
      resultMessage.push('el test ha sido correcto');
   }
   else{
-    resultMessage.push(`timeout no ha contestado el bot o ha tardado mas de ${timeoutsecs} segundos `);
+    resultMessage.push(`el bot ha respondido ${answerMessages[0].message} y se esperaba ${messageExpected} `);
   }
 
 
-  console.log(resultMessage);
-  process.exit(1);
-
-})(); 
-
-
-
+  return resultMessage;
+}
