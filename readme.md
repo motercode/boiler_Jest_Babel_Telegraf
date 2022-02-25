@@ -1,3 +1,15 @@
+COMO USARLO
+
+npm install
+npm run test 
+npm run start 
+
+
+
+
+
+
+
 COMO VOLVERLO A CREAR
 
 npm init 
@@ -27,16 +39,9 @@ o
 npm run test 
 
 
-COMO USARLO
-
-npm install
-npm run test 
-npm run start 
 
 
-
-
-como he intalado el cliente de telegram para las pruebas de integraciones
+COMO SE HA INSTALADO EL CLIENTE DE TELEGRAM PARA LAS PRUEVAS DE INTEGRACIONES
 usando gramjs  npm
 npm i telegram -D
 
