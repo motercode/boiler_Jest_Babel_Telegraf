@@ -2,4 +2,9 @@ const myFunction = () => {
     return 'not mocked';
 };
 
-export { myFunction } 
+const anothermyFunction = () => {
+    return 'not mocked';
+};
+
+
+export { myFunction , anothermyFunction } 
